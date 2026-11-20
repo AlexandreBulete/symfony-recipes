@@ -1,0 +1,146 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+/*
+ * Compiles the recipes (vendor/package/version/, symfony/recipes layout) into
+ * a Symfony Flex endpoint:
+ *
+ *   index.json                          which package has which recipe versions
+ *   vendor.package.version.json         one recipe: manifest + files
+ *
+ * Usage: bin/build <output dir> <base url of the published output>
+ *
+ * The base url is where the output is served from, e.g.
+ * https://raw.githubusercontent.com/<owner>/<repo>/flex/main — Flex then
+ * reads <base url>/index.json, declared in the app's composer.json:
+ *
+ *   "extra": { "symfony": { "endpoint": ["<base url>/index.json", "flex://defaults"] } }
+ *
+ * The endpoint must come before flex://defaults: the first endpoint that
+ * knows a package wins.
+ */
+
+const MANIFEST_KEYS = [
+    'aliases', 'bundles', 'composer-scripts', 'container', 'copy-from-package',
+    'copy-from-recipe', 'docker-compose', 'dockerfile', 'env', 'gitignore',
+    'makefile', 'add-lines', 'conflict', 'dotenv',
+];
+
+[$script, $out, $baseUrl] = $argv + [null, null, null];
+if (null === $out || null === $baseUrl) {
+    fwrite(STDERR, "Usage: {$script} <output dir> <base url>\n");
+    exit(1);
+}
+
+$root = dirname(__DIR__);
+$baseUrl = rtrim($baseUrl, '/');
+$errors = [];
+$index = [];
+
+if (!is_dir($out) && !mkdir($out, 0o755, true)) {
+    fwrite(STDERR, "Cannot create {$out}\n");
+    exit(1);
+}
+
+foreach (glob($root . '/*/*/*/manifest.json') ?: [] as $manifestFile) {
+    $dir = dirname($manifestFile);
+    $version = basename($dir);
+    $package = basename(dirname(dirname($dir))) . '/' . basename(dirname($dir));
+
+    if (!preg_match('/^\d+\.\d+$/', $version)) {
+        $errors[] = "{$package}: version directory \"{$version}\" must be <major>.<minor>";
+        continue;
+    }
+
+    try {
+        $manifest = json_decode((string) file_get_contents($manifestFile), true, 512, JSON_THROW_ON_ERROR);
+    } catch (JsonException $e) {
+        $errors[] = "{$package} {$version}: invalid manifest.json ({$e->getMessage()})";
+        continue;
+    }
+
+    if (!is_array($manifest)) {
+        $errors[] = "{$package} {$version}: manifest.json must be an object";
+        continue;
+    }
+
+    foreach (array_diff(array_keys($manifest), MANIFEST_KEYS) as $unknown) {
+        $errors[] = "{$package} {$version}: unknown manifest key \"{$unknown}\"";
+    }
+
+    // Every file of the recipe directory but the manifest and post-install
+    // text, as Flex expects them: lines, or base64 for anything non-UTF-8.
+    $files = [];
+    $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS));
+    foreach ($iterator as $file) {
+        $relative = substr($file->getPathname(), strlen($dir) + 1);
+        if (in_array($relative, ['manifest.json', 'post-install.txt'], true)) {
+            continue;
+        }
+        $contents = (string) file_get_contents($file->getPathname());
+        $files[$relative] = [
+            'contents' => mb_check_encoding($contents, 'UTF-8') ? explode("\n", $contents) : base64_encode($contents),
+            'executable' => is_executable($file->getPathname()),
+        ];
+    }
+    ksort($files);
+
+    foreach ($manifest['copy-from-recipe'] ?? [] as $source => $target) {
+        $source = rtrim((string) $source, '/');
+        $matches = array_filter(array_keys($files), static fn (string $f): bool => $f === $source || str_starts_with($f, $source . '/'));
+        if ([] === $matches) {
+            $errors[] = "{$package} {$version}: copy-from-recipe \"{$source}\" matches no file";
+        }
+    }
+
+    $postInstall = $dir . '/post-install.txt';
+    if (is_file($postInstall)) {
+        $manifest['post-install-output'] = explode("\n", rtrim((string) file_get_contents($postInstall), "\n"));
+    }
+
+    $recipe = ['manifest' => $manifest, 'files' => $files];
+    // Flex stores the ref in symfony.lock and compares it on `recipes:update`:
+    // it only has to change when the recipe does.
+    $recipe['ref'] = sha1(json_encode($recipe, JSON_THROW_ON_ERROR));
+
+    file_put_contents(
+        $out . '/' . str_replace('/', '.', $package) . '.' . $version . '.json',
+        json_encode(['manifests' => [$package => $recipe]], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR) . "\n",
+    );
+
+    $index[$package][] = $version;
+}
+
+if ([] !== $errors) {
+    fwrite(STDERR, implode("\n", $errors) . "\n");
+    exit(1);
+}
+
+if ([] === $index) {
+    fwrite(STDERR, "No recipe found.\n");
+    exit(1);
+}
+
+ksort($index);
+foreach ($index as &$versions) {
+    usort($versions, 'version_compare');
+}
+unset($versions);
+
+$repository = preg_replace('{^https://raw\.githubusercontent\.com/([^/]+/[^/]+)/.*$}', 'github.com/$1', $baseUrl);
+
+file_put_contents($out . '/index.json', json_encode([
+    'recipes' => $index,
+    'branch' => 'main',
+    'is_contrib' => false,
+    '_links' => [
+        'repository' => $repository,
+        'origin_template' => '{package}:{version}@' . $repository . ':main',
+        'recipe_template' => $baseUrl . '/{package_dotted}.{version}.json',
+    ],
+], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR) . "\n");
+
+$count = array_sum(array_map('count', $index));
+fwrite(STDOUT, "{$count} recipe(s), " . count($index) . " package(s) → {$out}\n");

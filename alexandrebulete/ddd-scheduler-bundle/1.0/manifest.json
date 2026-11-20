@@ -1,0 +1,5 @@
+{
+    "bundles": {
+        "AlexandreBulete\\DddSchedulerBundle\\DddSchedulerBundle": ["all"]
+    }
+}

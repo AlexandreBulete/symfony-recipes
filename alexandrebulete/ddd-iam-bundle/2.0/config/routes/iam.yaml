@@ -1,0 +1,4 @@
+# Plain controllers of the bundle (autocomplete). The back-office screens are
+# Sylius resources: their routes come from #[AsResource], not from here.
+iam:
+    resource: '@DddIamBundle/config/routes.php'

@@ -1,0 +1,23 @@
+# alexandrebulete/ddd-iam-bundle: users, roles and permissions, authentication,
+# audit trail and back-office screens.
+#
+# Everything works without touching this file; it only shows the extension
+# points. Roles and their permissions are data (back office, Roles screen), not
+# configuration: `super_admin` is created by the bundle's migrations.
+#
+# Not IAM, so not here: phone, avatar, organisation. Those belong to a
+# companion aggregate in one of the project's contexts, keyed by UserId.
+iam:
+    # password_policy:
+    #     min_length: 12
+    #     require_letters: true
+    #     require_digits: true
+    #     require_mixed_case: false
+    #     require_special_character: false
+
+    # audit:
+    #     enabled: true      # false: no listener, no writes (the table stays)
+
+    # admin:
+    #     enabled: true      # false: headless deployment, no Sylius screen
+    #     grid_limits: [10, 25, 50]

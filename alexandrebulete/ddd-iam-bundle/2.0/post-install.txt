@@ -1,0 +1,3 @@
+  * Run the migrations: <comment>bin/console doctrine:migrations:migrate</>
+  * Create the first administrator: <comment>bin/console iam:create-super-admin</>
+  * Protect the back office with the <comment>backoffice.access</> permission in <comment>config/packages/security.yaml</>

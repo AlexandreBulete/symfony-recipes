@@ -1,0 +1,44 @@
+name: Flex endpoint
+
+# Compiles the recipes and publishes them on the `flex/main` branch, which is
+# what applications read:
+#   https://raw.githubusercontent.com/AlexandreBulete/symfony-recipes/flex/main/index.json
+# Pull requests only check that the recipes compile.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: flex-endpoint-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          coverage: none
+
+      - name: Compile
+        run: php bin/build dist "https://raw.githubusercontent.com/${{ github.repository }}/flex/main"
+
+      - name: Publish on flex/main
+        if: github.event_name != 'pull_request'
+        run: |
+          cd dist
+          git init -q -b flex/main
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -q -m "chore: publish ${GITHUB_SHA::7}"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" flex/main

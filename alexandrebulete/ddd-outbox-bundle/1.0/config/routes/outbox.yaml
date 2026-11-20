@@ -1,0 +1,3 @@
+# The "Retry" action of the back-office screen listing async tasks.
+outbox:
+    resource: '@DddOutboxBundle/config/routes.php'
