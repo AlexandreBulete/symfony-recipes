@@ -16,6 +16,17 @@ script in any bundle, nothing to wire by hand.
 | ddd-notification-bundle | 1.0 | registers the bundle |
 | ddd-scheduler-bundle | 1.0 | registers the bundle |
 
+## Scope
+
+Recipes of the packages published under `alexandrebulete/*`, and nothing else:
+
+- one recipe per package that ships a bundle, in the package's own folder;
+  libraries without a bundle (ddd-foundation, the bridges) need none;
+- never a recipe for a third-party package: it would shadow the official one
+  for every application using this endpoint — that goes to
+  symfony/recipes-contrib;
+- never project-specific configuration: that lives in the project.
+
 ## Using it in an application
 
 ```bash
