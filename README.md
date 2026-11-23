@@ -15,6 +15,8 @@ script in any bundle, nothing to wire by hand.
 | ddd-activity-bundle | 1.0 | registers the bundle |
 | ddd-notification-bundle | 1.0 | registers the bundle |
 | ddd-scheduler-bundle | 1.0 | registers the bundle |
+| ddd-blog-bundle | 1.0 | registers the bundle |
+| ddd-media-bundle | 1.0 | registers the bundle (LiipImagine and Flysystem come with their own recipes) |
 
 ## Scope
 
