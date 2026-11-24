@@ -18,6 +18,7 @@ script in any bundle, nothing to wire by hand.
 | ddd-blog-bundle | 1.0 | registers the bundle |
 | ddd-media-bundle | 1.0 | registers the bundle (LiipImagine and Flysystem come with their own recipes) |
 | ddd-contact-bundle | 1.0 | registers the bundle |
+| ddd-page-bundle | 1.0 | registers the bundle |
 
 ## Scope
 
