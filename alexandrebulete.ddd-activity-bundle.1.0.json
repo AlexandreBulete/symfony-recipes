@@ -1,0 +1,15 @@
+{
+    "manifests": {
+        "alexandrebulete/ddd-activity-bundle": {
+            "manifest": {
+                "bundles": {
+                    "AlexandreBulete\\DddActivityBundle\\DddActivityBundle": [
+                        "all"
+                    ]
+                }
+            },
+            "files": [],
+            "ref": "7853923a0700eeef25eadb5f6a41ad4c0b3fc10c"
+        }
+    }
+}

@@ -1,0 +1,28 @@
+{
+    "manifests": {
+        "alexandrebulete/ddd-outbox-bundle": {
+            "manifest": {
+                "bundles": {
+                    "AlexandreBulete\\DddOutboxBundle\\DddOutboxBundle": [
+                        "all"
+                    ]
+                },
+                "copy-from-recipe": {
+                    "config/": "%CONFIG_DIR%/"
+                }
+            },
+            "files": {
+                "config/routes/outbox.yaml": {
+                    "contents": [
+                        "# The \"Retry\" action of the back-office screen listing async tasks.",
+                        "outbox:",
+                        "    resource: '@DddOutboxBundle/config/routes.php'",
+                        ""
+                    ],
+                    "executable": false
+                }
+            },
+            "ref": "054af75bfd0c5f8b59e91ac42c9420e34ec3e033"
+        }
+    }
+}

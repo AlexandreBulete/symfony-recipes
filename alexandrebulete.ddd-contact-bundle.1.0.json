@@ -1,0 +1,15 @@
+{
+    "manifests": {
+        "alexandrebulete/ddd-contact-bundle": {
+            "manifest": {
+                "bundles": {
+                    "AlexandreBulete\\DddContactBundle\\DddContactBundle": [
+                        "all"
+                    ]
+                }
+            },
+            "files": [],
+            "ref": "af6b0345d059b9742af52efc158acd5c8ef3f7f0"
+        }
+    }
+}

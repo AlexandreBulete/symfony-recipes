@@ -1,0 +1,15 @@
+{
+    "manifests": {
+        "alexandrebulete/ddd-sylius-bundle": {
+            "manifest": {
+                "bundles": {
+                    "AlexandreBulete\\DddSyliusBundle\\DddSyliusBundle": [
+                        "all"
+                    ]
+                }
+            },
+            "files": [],
+            "ref": "38f6edb5673416950af792e98f05b266fae6167d"
+        }
+    }
+}

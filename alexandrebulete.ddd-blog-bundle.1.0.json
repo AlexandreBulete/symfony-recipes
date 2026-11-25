@@ -1,0 +1,15 @@
+{
+    "manifests": {
+        "alexandrebulete/ddd-blog-bundle": {
+            "manifest": {
+                "bundles": {
+                    "AlexandreBulete\\DddBlogBundle\\DddBlogBundle": [
+                        "all"
+                    ]
+                }
+            },
+            "files": [],
+            "ref": "0657cfa854d9c11a8dd90c89c4d3dfa7ad7c8363"
+        }
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "manifests": {
+        "alexandrebulete/ddd-scheduler-bundle": {
+            "manifest": {
+                "bundles": {
+                    "AlexandreBulete\\DddSchedulerBundle\\DddSchedulerBundle": [
+                        "all"
+                    ]
+                }
+            },
+            "files": [],
+            "ref": "4366d5cf60022d7282a69d8f3f60864ca2cf2da6"
+        }
+    }
+}

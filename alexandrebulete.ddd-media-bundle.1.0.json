@@ -1,0 +1,15 @@
+{
+    "manifests": {
+        "alexandrebulete/ddd-media-bundle": {
+            "manifest": {
+                "bundles": {
+                    "AlexandreBulete\\DddMediaBundle\\DddMediaBundle": [
+                        "all"
+                    ]
+                }
+            },
+            "files": [],
+            "ref": "c61d3cc741c5b777bfe5d0ff9dd48cc5a70fd567"
+        }
+    }
+}

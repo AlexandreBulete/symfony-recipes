@@ -1,0 +1,15 @@
+{
+    "manifests": {
+        "alexandrebulete/ddd-apiplatform-bundle": {
+            "manifest": {
+                "bundles": {
+                    "AlexandreBulete\\DddApiPlatformBundle\\DddApiPlatformBundle": [
+                        "all"
+                    ]
+                }
+            },
+            "files": [],
+            "ref": "7d08acfb427794ab11607c9cac5011f1609408e6"
+        }
+    }
+}

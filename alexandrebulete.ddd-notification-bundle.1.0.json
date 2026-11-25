@@ -1,0 +1,15 @@
+{
+    "manifests": {
+        "alexandrebulete/ddd-notification-bundle": {
+            "manifest": {
+                "bundles": {
+                    "AlexandreBulete\\DddNotificationBundle\\DddNotificationBundle": [
+                        "all"
+                    ]
+                }
+            },
+            "files": [],
+            "ref": "41a1037e7c47145d642d375bbcf219a12341d5d6"
+        }
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "manifests": {
+        "alexandrebulete/ddd-page-bundle": {
+            "manifest": {
+                "bundles": {
+                    "AlexandreBulete\\DddPageBundle\\DddPageBundle": [
+                        "all"
+                    ]
+                }
+            },
+            "files": [],
+            "ref": "deba7754747232187a49fb13bd7fea457acc2882"
+        }
+    }
+}

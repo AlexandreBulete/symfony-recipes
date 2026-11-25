@@ -1,0 +1,15 @@
+{
+    "manifests": {
+        "alexandrebulete/ddd-symfony-bundle": {
+            "manifest": {
+                "bundles": {
+                    "AlexandreBulete\\DddSymfonyBundle\\DddSymfonyBundle": [
+                        "all"
+                    ]
+                }
+            },
+            "files": [],
+            "ref": "5cd0d3d3e0f0d6f794782ef0bc4db2a323c0ca83"
+        }
+    }
+}

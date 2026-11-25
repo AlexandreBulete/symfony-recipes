@@ -1,0 +1,50 @@
+{
+    "recipes": {
+        "alexandrebulete/ddd-activity-bundle": [
+            "1.0"
+        ],
+        "alexandrebulete/ddd-apiplatform-bundle": [
+            "1.0"
+        ],
+        "alexandrebulete/ddd-blog-bundle": [
+            "1.0"
+        ],
+        "alexandrebulete/ddd-contact-bundle": [
+            "1.0"
+        ],
+        "alexandrebulete/ddd-doctrine-bundle": [
+            "1.0"
+        ],
+        "alexandrebulete/ddd-iam-bundle": [
+            "2.0"
+        ],
+        "alexandrebulete/ddd-media-bundle": [
+            "1.0"
+        ],
+        "alexandrebulete/ddd-notification-bundle": [
+            "1.0"
+        ],
+        "alexandrebulete/ddd-outbox-bundle": [
+            "1.0"
+        ],
+        "alexandrebulete/ddd-page-bundle": [
+            "1.0"
+        ],
+        "alexandrebulete/ddd-scheduler-bundle": [
+            "1.0"
+        ],
+        "alexandrebulete/ddd-sylius-bundle": [
+            "1.0"
+        ],
+        "alexandrebulete/ddd-symfony-bundle": [
+            "1.0"
+        ]
+    },
+    "branch": "main",
+    "is_contrib": false,
+    "_links": {
+        "repository": "github.com/AlexandreBulete/symfony-recipes",
+        "origin_template": "{package}:{version}@github.com/AlexandreBulete/symfony-recipes:main",
+        "recipe_template": "https://raw.githubusercontent.com/AlexandreBulete/symfony-recipes/flex/main/{package_dotted}.{version}.json"
+    }
+}
