@@ -1,0 +1,5 @@
+{
+    "bundles": {
+        "AlexandreBulete\\DddAntispamBundle\\DddAntispamBundle": ["all"]
+    }
+}
