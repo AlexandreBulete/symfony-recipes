@@ -1,0 +1,4 @@
+# The back-office CRUD routes come from the bundle's #[AsResource] (Sylius).
+# This import is the bulk moderation action only.
+comment:
+    resource: '@DddCommentBundle/config/routes.php'
