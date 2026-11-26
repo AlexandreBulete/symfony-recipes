@@ -15,6 +15,7 @@ script in any bundle, nothing to wire by hand.
 | ddd-activity-bundle | 1.0 | registers the bundle |
 | ddd-notification-bundle | 1.0 | registers the bundle |
 | ddd-scheduler-bundle | 1.0 | registers the bundle |
+| ddd-seo-bundle | 1.0 | registers the bundle, `config/routes/seo.yaml` (sitemap.xml, robots.txt) |
 
 ## Scope
 

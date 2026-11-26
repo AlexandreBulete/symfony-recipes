@@ -1,0 +1,4 @@
+# /sitemap.xml and /robots.txt. The back-office screens come from the bundle's
+# #[AsResource] (Sylius).
+seo:
+    resource: '@DddSeoBundle/config/routes.php'
